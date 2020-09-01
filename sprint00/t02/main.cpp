@@ -1,0 +1,17 @@
+#include "walletManager.h"
+
+int main() {
+    Wallet* wallet = createWallet(10);
+    std::cout << "I've got " << wallet->septims << " septims in the wallet." << std::endl;
+    destroyWallet(wallet);
+    // std::cout << "I've got " << wallet->septims << " septims in the wallet." << std::endl;
+
+    int amount = 5;
+    Wallet* wallets = createWallets(amount);
+    for (int i = 0; i < amount; i++) {
+        wallets[i].septims = i * i;
+        std::cout << i << " wallet: " << wallets[i].septims << " septims." << std::endl;
+    }
+    destroyWallets(wallets);
+    return 0;
+}
