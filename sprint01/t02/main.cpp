@@ -45,18 +45,24 @@ bool check_input(std::deque<t_town *> &towns, const std::vector<std::string> &ar
                 return false;
             }
             town->name = tmp;
+            // element = element.substr(to + 1, element.size());
+            // std::cout << from << " | ";
             from = to + 1;
+            // std::cout << from << " | ";
             to = element.find(",", from);
-            tmp = element.substr(from, to);
-            if (tmp.find_first_not_of("0123456789") == std::string::npos) {
-                std::cout << "Argument " << element << " is not valid" << std::endl;
+            // std::cout << to << " | ";
+            tmp = element.substr(from, to - from);
+            // std::cout << tmp << " | ";  
+            if (tmp.find_first_not_of("0123456789") != std::string::npos) {
+                std::cout << "1Argument " << element << " is not valid" << std::endl;
                 return false;
             }
             town->stamina = stoi(tmp);
             from = to + 1;
             tmp = element.substr(from);
+            // std::cout << tmp << " | ";
             if (tmp.find_first_not_of("0123456789") != std::string::npos) {
-                std::cout << "Argument " << element << " is not valid" << std::endl;
+                std::cout << "2Argument " << element << " is not valid" << std::endl;
                 return false;
             }
             town->distance = stoi(tmp);
@@ -72,7 +78,7 @@ bool check_input(std::deque<t_town *> &towns, const std::vector<std::string> &ar
 void find_route(std::deque<t_town *> &towns) {
     t_town *tmp = NULL;
     int t = 0;
-    int energy = 0;
+    int energy = -1;
 
     for (unsigned long int i = 0; i < towns.size(); i++) {
         if (towns[t]->stamina < towns[t]->distance) {
@@ -83,19 +89,27 @@ void find_route(std::deque<t_town *> &towns) {
             t = 0;
         }
         else {
-            for (const auto town : towns) {
-                energy += town->stamina - town->distance;
-            }
-            if (energy < 0 && i < towns.size()) {
-                std::cout << "Mission: Impossible" << std::endl;
-                i = towns.size();
-            } else {
-                for (const auto& n : towns) {
-                    std::cout << n->id << " " << n->name << std::endl;
+            energy = 0;
+            for (unsigned long int j = 0; j < towns.size(); j++) {
+                energy += towns[j]->stamina - towns[j]->distance;
+                // std::cout << energy << std::endl;
+                if (energy < 0) {
+                    j = towns.size();
+                    tmp = towns.front();
+                    towns.pop_front();
+                    towns.push_back(tmp);
+                    tmp = NULL; 
                 }
-                i = towns.size();
+
             }
         }
+    }
+    if (energy < 0) {
+        std::cout << "Mission: Impossible" << std::endl;
+    } else {
+        for (const auto& n : towns) {
+            std::cout << n->id << " " << n->name << std::endl;
+        }        
     }
 }
 
