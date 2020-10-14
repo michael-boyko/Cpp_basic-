@@ -26,6 +26,7 @@ int male = 0;
 int female = 0;
 int m_vampirev = 0;
 int f_vampirev = 0;
+int born_vapire = 0;
 
 void init_rabbits(std::list<struct Rabbit *> &rabbits) {
     struct Rabbit *r = NULL;
@@ -35,7 +36,8 @@ void init_rabbits(std::list<struct Rabbit *> &rabbits) {
         r = new struct Rabbit;
         chance = std::rand() % 100;
         if (chance >= 50) {
-            if (chance == 72) {
+            if (chance == 101) {
+                born_vapire++;
                 m_vampirev++;
                 r->isVampire = 1;
                 r->age = 8;
@@ -47,7 +49,7 @@ void init_rabbits(std::list<struct Rabbit *> &rabbits) {
             male++;
             r->gender = Gender::Male;
         } else {
-            if (chance == 31) {
+            if (chance == 0) {
                 f_vampirev++;
                 r->isVampire = 1;
                 r->age = 8;
@@ -78,14 +80,12 @@ int amount_new_rabbits(void) {
 }
 
 void delete_rabbits(std::list<struct Rabbit *> &rabbits) {
-    // auto i = rabbits.begin();
-    int e = 0;
+    auto i = rabbits.begin();
+    int amount_vampire = m_vampirev + f_vampirev;
 
     for (auto r : rabbits) {
-        // std::cout << e << std::endl;
-        // std::cout << r->age << std::endl;
         if (r->age == 0) {
-            std::cout << r->isVampire << std::endl;
+            // std::cout << r->isVampire << std::endl;
             if (r->isVampire == 0) {
                 if (static_cast<int>(r->gender) == 0) {
                     male--;
@@ -101,11 +101,23 @@ void delete_rabbits(std::list<struct Rabbit *> &rabbits) {
                     female--;
                 }
             }
-            // i = rabbits.erase(i);
+            i = rabbits.erase(i);
         } else {
+            if (r->isVampire == 0 && amount_vampire > 0) {
+                if (static_cast<int>(r->gender) == 0) {
+                    m_vampirev++;
+                    r->isVampire = 1;
+                    r->age += 5;
+                } else {
+                    f_vampirev++;
+                    r->isVampire = 1;
+                    r->age += 5;
+                }
+                amount_vampire--;
+            }
             (r->age)--;
+            i++;
         }
-        e++;
     }
 }
 
@@ -114,11 +126,11 @@ void create_rabbits(std::list<struct Rabbit *> &rabbits) {
     int chance = 0;
     int amount = amount_new_rabbits();
 
-    for (int i = 0; i < amount; i++) { //initialization 10 rabbits
+    for (int i = 0; i < amount; i++) {
         r = new struct Rabbit;
         chance = std::rand() % 100;
         if (chance >= 50) {
-            if (chance == 72) {
+            if (chance == 101) {
                 m_vampirev++;
                 r->isVampire = 1;
                 r->age = 8;
@@ -130,7 +142,7 @@ void create_rabbits(std::list<struct Rabbit *> &rabbits) {
             male++;
             r->gender = Gender::Male;
         } else {
-            if (chance == 31) {
+            if (chance == 0) {
                 f_vampirev++;
                 r->isVampire = 1;
                 r->age = 8;
@@ -148,41 +160,19 @@ void create_rabbits(std::list<struct Rabbit *> &rabbits) {
 
 int main() {
     std::list<struct Rabbit *> rabbits;
-    int e = 0;
 
     std::srand(std::time(0));
     init_rabbits(rabbits);
-    // std::cout << "Males: " << male << std::endl;
-    // std::cout << "Females: " << female << std::endl;
-    // std::cout << "Vampire: " << m_vampirev + f_vampirev << std::endl;
     while (male + female > 0 && male + female < 1000) {
-        sleep(1);
         std::cout << std::endl;
         std::cout << "Males: " << male << std::endl;
         std::cout << "Females: " << female << std::endl;
         std::cout << "Vampire: " << m_vampirev + f_vampirev << std::endl;
-        // std::cout << e << std::endl;
         
         create_rabbits(rabbits);
         delete_rabbits(rabbits);
-        e++;
-           
+        sleep(1);
     }
-    
-    // for (const auto n : rabbits) {
-    //     if (static_cast<int>(n->gender) == 0) {
-    //         std::cout << "Male" << std::endl;
-    //         std::cout << "Vampire " << n->isVampire << std::endl;
-    //         std::cout << "age " << n->age << std::endl;
-    //     } else {
-    //         std::cout << "Female" << std::endl;
-    //         std::cout << "Vampire " << n->isVampire << std::endl;
-    //         std::cout << "age " << n->age << std::endl;
-    //     }
-    //     std::cout << std::endl;
-    // }
-
-
 
     return 0;
 }
