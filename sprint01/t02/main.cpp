@@ -45,14 +45,9 @@ bool check_input(std::deque<t_town *> &towns, const std::vector<std::string> &ar
                 return false;
             }
             town->name = tmp;
-            // element = element.substr(to + 1, element.size());
-            // std::cout << from << " | ";
             from = to + 1;
-            // std::cout << from << " | ";
             to = element.find(",", from);
-            // std::cout << to << " | ";
-            tmp = element.substr(from, to - from);
-            // std::cout << tmp << " | ";  
+            tmp = element.substr(from, to - from);  
             if (tmp.find_first_not_of("0123456789") != std::string::npos) {
                 std::cout << "1Argument " << element << " is not valid" << std::endl;
                 return false;
@@ -60,7 +55,6 @@ bool check_input(std::deque<t_town *> &towns, const std::vector<std::string> &ar
             town->stamina = stoi(tmp);
             from = to + 1;
             tmp = element.substr(from);
-            // std::cout << tmp << " | ";
             if (tmp.find_first_not_of("0123456789") != std::string::npos) {
                 std::cout << "2Argument " << element << " is not valid" << std::endl;
                 return false;
@@ -92,7 +86,6 @@ void find_route(std::deque<t_town *> &towns) {
             energy = 0;
             for (unsigned long int j = 0; j < towns.size(); j++) {
                 energy += towns[j]->stamina - towns[j]->distance;
-                // std::cout << energy << std::endl;
                 if (energy < 0) {
                     j = towns.size();
                     tmp = towns.front();
