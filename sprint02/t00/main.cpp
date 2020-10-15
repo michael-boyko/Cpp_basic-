@@ -10,6 +10,7 @@ int main(int argc, char *argv[]) {
     std::string tmp;
     std::vector<std::string> vstr;
     unsigned long int index = 0;
+    int t = 0;
     
     if (argc != 2) {
         std::cout << "usage: ./uniqueWords [file_name]" << std::endl;
@@ -27,14 +28,14 @@ int main(int argc, char *argv[]) {
         fin.close();
         // for_each();
         for (auto n : vstr) {
-            while (index != std::string::npos) {
+            while (index != std::string::npos && t < 10) {
                 index = n.find_first_of(' ');
-                if (index != std::string::npos) {
+                if (index == std::string::npos) {
+                    std::cout << n << std::endl;
+                } else {
                     tmp = n.substr(0, index);
                     std::cout << tmp << std::endl;
-                    n.erase(0, tmp.size());
-                } else {
-                    
+                    n.erase(0, tmp.size() + 1);
                 }
                 // index++;
                 // tmp.erase(std::remove_if(tmp.begin(), tmp.end(),[](unsigned char x) {
@@ -42,6 +43,7 @@ int main(int argc, char *argv[]) {
                 // }), tmp.end());
                 // std::cout << tmp << std::endl;
                 // index = -1;
+                // t++;
             }
             index = 0;
             // std::cout << n << std::endl;
