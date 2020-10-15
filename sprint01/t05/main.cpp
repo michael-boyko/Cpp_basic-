@@ -5,8 +5,6 @@
 #include <sstream>
 #include <forward_list>
 
-
-
 int main(int argc, char *argv[]) {
     std::ifstream fin;
     std::string str;
@@ -31,7 +29,7 @@ int main(int argc, char *argv[]) {
         vstr.remove_if([](std::string fls) {
             return (fls.find('c') != std::string::npos
                     || fls.find('b') != std::string::npos
-                    || fls.find('l') != std::string::npos) == true ? true : false;
+                    || fls.find('l') != std::string::npos);
         });
         std::for_each(vstr.begin(), vstr.end(), [](std::string &fls) {
             if (fls.size() > 10) {
