@@ -4,13 +4,15 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <set>
+#include <cctype>
 
 int main(int argc, char *argv[]) {
     std::ifstream fin;
     std::string tmp;
-    std::vector<std::string> vstr;
+    std::set<std::string> str;
+    std::set<std::string> str_uniq;
     unsigned long int index = 0;
-    int t = 0;
     
     if (argc != 2) {
         std::cout << "usage: ./uniqueWords [file_name]" << std::endl;
@@ -23,50 +25,27 @@ int main(int argc, char *argv[]) {
     } else {
         std::ofstream ofs(tmp.insert(tmp.rfind('.'), "_mod"));
         while (getline(fin, tmp, '\n')) {
-            vstr.push_back(tmp);
+            str.insert(tmp);
         }
         fin.close();
-        // for_each();
-        for (auto n : vstr) {
-            while (index != std::string::npos && t < 10) {
+        for (auto n : str) {
+            index = n.find_first_of(' ');
+            while (index != std::string::npos) {
+                tmp = n.substr(0, index);
+                n.erase(0, tmp.size() + 1);
                 index = n.find_first_of(' ');
-                if (index == std::string::npos) {
-                    std::cout << n << std::endl;
-                } else {
-                    tmp = n.substr(0, index);
-                    std::cout << tmp << std::endl;
-                    n.erase(0, tmp.size() + 1);
-                }
-                // index++;
-                // tmp.erase(std::remove_if(tmp.begin(), tmp.end(),[](unsigned char x) {
-                //     return std::isspace(x);
-                // }), tmp.end());
-                // std::cout << tmp << std::endl;
-                // index = -1;
-                // t++;
+                tmp.erase (std::remove_if (tmp.begin (), tmp.end (), ispunct), tmp.end ());
+                str_uniq.insert(tmp);
+            }
+            if (n.find_first_not_of(" ") != std::string::npos) {
+                n.erase (std::remove_if (n.begin (), n.end (), ispunct), n.end ());
+                str_uniq.insert(n);
             }
             index = 0;
-            // std::cout << n << std::endl;
         }
-        // vstr.sort();
-        // vstr.unique();
-        // vstr.remove_if([](std::string fls) {
-        //     return (fls.find('c') != std::string::npos
-        //             || fls.find('b') != std::string::npos
-        //             || fls.find('l') != std::string::npos) == true ? true : false;
-        // });
-        // std::for_each(vstr.begin(), vstr.end(), [](std::string &fls) {
-        //     if (fls.size() > 10) {
-        //         fls = "Long one";
-        //     } else if (fls.size() < 4) {
-        //         fls = "Short one";
-        //     }
-        // });
-        // vstr.sort();
-        // vstr.reverse();
-        // for (auto n : vstr) {
-        //     ofs << n << std::endl;
-        // }
+        for (auto n : str_uniq) {
+            ofs << n << std::endl;
+        }
         ofs.close();
     }
 
