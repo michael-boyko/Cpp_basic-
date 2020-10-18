@@ -7,6 +7,7 @@
 #include <set>
 #include <cctype>
 
+
 int main(int argc, char *argv[]) {
     std::ifstream fin;
     std::string tmp;
@@ -45,16 +46,18 @@ int main(int argc, char *argv[]) {
             index = 0;
         }
         auto p_equal = str_clear.equal_range(*str_clear.begin());
-        
-        while (p_equal.second != str_clear.end()) {
-            while (*p_equal.first != *p_equal.second) {
+        while (index < str_clear.size()) {
+            tmp = *p_equal.first;
+            if (p_equal.first == p_equal.second) {
+                count++;
+            }
+            while (p_equal.first != p_equal.second) {
                 p_equal.first++;
                 count++;
             }
-            std::cout << *p_equal.second << std::endl;
             p_equal = str_clear.equal_range(*p_equal.second);
-            // std::cout << 
-            ofs << ": " << count << std::endl;
+            ofs << tmp << ": " << count << std::endl;
+            index += count;
             count = 0;
         }
         ofs.close();
