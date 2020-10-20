@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 
-project("Template")
+project("sumOfArguments")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -14,4 +14,4 @@ add_compile_options(
         -Wpedantic
 )
 
-add_executable("Template" "main.cpp" "templateAddition.h")
+add_executable("sumOfArguments" "main.cpp" "sumOfArguments.h")
