@@ -9,7 +9,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ee54c359-21a1-4177-bebf-3b58ae7915ac" name="Default Changelist" comment="" />
+    <list default="true" id="ee54c359-21a1-4177-bebf-3b58ae7915ac" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/sprint03/t01/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprint03/t01/main.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sprint03/t01/outputAny.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,7 +35,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/sprint03" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/sprint03" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" PASS_PARENT_ENVS_2="true">
@@ -47,7 +57,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1603194207291</updated>
-      <workItem from="1603194209017" duration="1392000" />
+      <workItem from="1603194209017" duration="2766000" />
     </task>
     <servers />
   </component>
